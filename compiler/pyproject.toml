@@ -1,0 +1,17 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "intentlang"
+version = "1.0.0"
+description = "IntentLang — the deterministic intermediate language of IntentOS, with a zero-dependency compiler"
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+
+[project.scripts]
+intentlang = "intentlang.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["intentlang*"]

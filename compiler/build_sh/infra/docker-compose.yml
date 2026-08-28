@@ -1,0 +1,14 @@
+services:
+  backend:
+    image: build: .
+    build:     context: ..
+    dockerfile: infra/Dockerfile
+    ports: 
+    - 8000:8000
+    environment: 
+    - DATABASE_URL=sqlite:////data/app.db
+    volumes: 
+    - app-data:/data
+    restart: unless-stopped
+volumes:
+  app-data:

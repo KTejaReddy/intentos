@@ -1,0 +1,177 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --accent: #6366f1;
+  --accent-soft: #a5b4fc;
+  --bg: #070a12;
+  --panel: rgba(19, 26, 43, 0.72);
+  --border: rgba(255, 255, 255, 0.08);
+  --text: #e6eaf3;
+  --muted: #8b94a7;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+  overflow: hidden;
+  font-family: Inter, system-ui, sans-serif;
+  background:
+    radial-gradient(1200px 600px at 80% -10%, rgba(99, 102, 241, 0.16), transparent 60%),
+    radial-gradient(900px 500px at -10% 110%, rgba(16, 185, 129, 0.08), transparent 55%),
+    var(--bg);
+  color: var(--text);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ---------- glass primitives ---------- */
+.glass {
+  background: var(--panel);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border: 1px solid var(--border);
+}
+
+.glass-strong {
+  background: rgba(13, 18, 32, 0.9);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.45);
+}
+
+.gradient-text {
+  background: linear-gradient(120deg, #a5b4fc, #818cf8 40%, #6ee7b7);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.hairline {
+  border-color: var(--border);
+}
+
+/* ---------- scrollbars ---------- */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: 8px;
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.22);
+  background-clip: padding-box;
+}
+
+/* ---------- buttons ---------- */
+.btn {
+  @apply inline-flex items-center justify-center gap-2 rounded-lg px-3.5 py-2 text-sm font-medium transition-all duration-150 select-none;
+}
+.btn:hover {
+  @apply brightness-110;
+}
+.btn:active {
+  @apply scale-[0.98];
+}
+.btn-primary {
+  background: linear-gradient(135deg, #6366f1, #8b5cf6);
+  @apply text-white shadow-glow;
+}
+.btn-ghost {
+  @apply text-[var(--muted)] hover:text-[var(--text)] hover:bg-white/5;
+}
+.btn-danger {
+  background: linear-gradient(135deg, #f43f5e, #fb7185);
+  @apply text-white;
+}
+
+/* ---------- panels ---------- */
+.panel {
+  @apply glass rounded-xl;
+}
+.panel-header {
+  @apply flex items-center justify-between px-3 h-9 text-[11px] font-semibold uppercase tracking-wider text-[var(--muted)] border-b border-white/5;
+}
+
+.tree-row {
+  @apply flex items-center gap-2 px-2 py-1 text-[13px] rounded-md cursor-pointer transition-colors;
+}
+.tree-row:hover {
+  @apply bg-white/5;
+}
+.tree-row.active {
+  @apply bg-indigo-500/15 text-indigo-200;
+}
+
+.chip {
+  @apply inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[11px] font-medium border border-white/10;
+}
+
+/* ---------- code ---------- */
+.code-font {
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+}
+
+/* ---------- console ---------- */
+.console-line {
+  @apply code-font text-[12px] leading-5 whitespace-pre-wrap break-words px-3 py-0.5;
+}
+.console-info {
+  @apply text-sky-300/80;
+}
+.console-ok {
+  @apply text-emerald-300/80;
+}
+.console-error {
+  @apply text-rose-300/90;
+}
+.console-muted {
+  @apply text-[var(--muted)];
+}
+
+/* ---------- preview ---------- */
+.preview-frame {
+  background: #0b0f1a;
+  border: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* ---------- toast ---------- */
+.ide-toast {
+  @apply glass-strong rounded-xl px-4 py-3 text-sm shadow-glow animate-fadeUp;
+}
+
+/* ---------- shimmer skeleton ---------- */
+.shimmer {
+  background: linear-gradient(90deg, rgba(255,255,255,0.03) 25%, rgba(255,255,255,0.09) 50%, rgba(255,255,255,0.03) 75%);
+  background-size: 800px 100%;
+  animation: shimmer 1.6s linear infinite;
+}
+
+/* ---------- monaco theming ---------- */
+.monaco-editor,
+.monaco-editor .margin {
+  background-color: #0b0f1a !important;
+}
+.monaco-editor .minimap {
+  opacity: 0.4;
+}
+
+/* ---------- pipeline ---------- */
+.step-connector {
+  @apply w-px h-6 mx-auto bg-white/10;
+}

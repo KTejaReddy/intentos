@@ -1,0 +1,18 @@
+app = "intentos-app"
+primary_region = "sin"
+
+[build]
+dockerfile = "../infra/Dockerfile"
+
+[env]
+  DATABASE_URL = "sqlite:////data/app.db"
+
+[mounts]
+  source = "app_data"
+  destination = "/data"
+
+[http_service]
+  internal_port = 8000
+  force_https = true
+  auto_stop_machines = true
+  auto_start_machines = true

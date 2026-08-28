@@ -1,0 +1,27 @@
+name: Deploy
+
+on:
+  push:
+    tags: ["v*"]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build image
+        run: docker build -f infra/Dockerfile -t intentos-app:latest .
+      - name: Push
+        env:
+          REGISTRY: ${{ secrets.REGISTRY }}
+        run: |
+          echo "${{ secrets.REGISTRY_PASSWORD }}" | docker login $REGISTRY -u "${{ secrets.REGISTRY_USERNAME }}" --password-stdin
+          docker tag intentos-app:latest $REGISTRY/intentos-app:latest
+          docker push $REGISTRY/intentos-app:latest
+      - name: Deploy
+        env:
+          SSH_KEY: ${{ secrets.SSH_KEY }}
+          SSH_HOST: ${{ secrets.SSH_HOST }}
+        run: |
+          mkdir -p ~/.ssh && echo "$SSH_KEY" > ~/.ssh/id_ed25519 && chmod 600 ~/.ssh/id_ed25519
+          ssh -o StrictHostKeyChecking=no $SSH_HOST "cd /opt/intentos-app && docker compose pull && docker compose up -d"
